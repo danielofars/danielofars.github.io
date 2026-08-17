@@ -1,0 +1,4 @@
+# Substitua a linha abaixo pelo valor exato que o Google AdSense
+# fornecer para o seu site (Console AdSense → Sites → "ads.txt").
+# Formato: google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
