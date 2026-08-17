@@ -1,0 +1,27 @@
+rules_version = '2';
+
+// =========================================================
+// Regras de segurança do Firestore — Currículo Fácil
+// -----------------------------------------------------------
+// Cada usuário só pode ler, criar, editar e excluir os
+// currículos que estão dentro do seu próprio documento
+// (usuarios/{uid}/curriculos/...). Ninguém acessa dados de
+// outra pessoa, nem mesmo currículos de outros usuários.
+//
+// Como aplicar: Firebase Console → Firestore Database →
+// aba "Regras" → cole este conteúdo → Publicar.
+// =========================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /usuarios/{userId}/curriculos/{curriculoId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Bloqueia qualquer outro acesso por padrão.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
