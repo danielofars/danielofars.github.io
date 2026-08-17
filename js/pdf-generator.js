@@ -110,7 +110,7 @@
     // Escolaridade
     if (dados.escolaridade) {
       y = tituloSecao(doc, "Escolaridade", y);
-      let texto = dados.escolaridade;
+      let texto = dados.cursoSuperior ? `${dados.escolaridade} em ${dados.cursoSuperior}` : dados.escolaridade;
       if (dados.instituicao) texto += " — " + dados.instituicao;
       y = escreverParagrafo(doc, texto, MARGEM, y);
       y += 4;
