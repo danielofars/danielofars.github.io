@@ -54,6 +54,9 @@
   const btnFonteMais = el("btn-fonte-mais");
   const btnFonteMenos = el("btn-fonte-menos");
 
+  const campoEscolaridade = el("escolaridade");
+  const campoCursoSuperior = el("campo-curso-superior");
+
   const btnLogin = el("btn-login");
   const btnLogout = el("btn-logout");
   const btnMeusCurriculos = el("btn-meus-curriculos");
@@ -273,6 +276,23 @@
   });
 
   // =========================================================
+  // Curso superior: mostra o campo só quando a escolaridade
+  // selecionada for de nível superior (incompleto ou completo)
+  // =========================================================
+
+  function atualizarVisibilidadeCursoSuperior() {
+    const valor = campoEscolaridade.value || "";
+    const ehSuperior = valor.toLowerCase().includes("superior");
+    campoCursoSuperior.hidden = !ehSuperior;
+    if (!ehSuperior) {
+      const campo = el("cursoSuperior");
+      if (campo) campo.value = "";
+    }
+  }
+
+  campoEscolaridade.addEventListener("change", atualizarVisibilidadeCursoSuperior);
+
+  // =========================================================
   // Coleta e preenchimento dos dados do formulário
   // =========================================================
 
@@ -298,6 +318,7 @@
       objetivo: el("objetivo").value.trim(),
       experiencias,
       escolaridade: el("escolaridade").value,
+      cursoSuperior: el("cursoSuperior").value.trim(),
       instituicao: el("instituicao").value.trim(),
       cursos,
       habilidades: el("habilidades").value.trim(),
@@ -314,7 +335,9 @@
     el("email").value = dados.email || "";
     el("objetivo").value = dados.objetivo || "";
     el("escolaridade").value = dados.escolaridade || "";
+    el("cursoSuperior").value = dados.cursoSuperior || "";
     el("instituicao").value = dados.instituicao || "";
+    atualizarVisibilidadeCursoSuperior();
     el("habilidades").value = dados.habilidades || "";
     el("disponibilidade").value = dados.disponibilidade || "";
     el("cnh").checked = !!dados.cnh;
@@ -402,7 +425,8 @@
     }
 
     if (d.escolaridade) {
-      html += `<div class="preview-secao"><h4>Escolaridade</h4><p>${escapeHtml(d.escolaridade)}${d.instituicao ? " — " + escapeHtml(d.instituicao) : ""}</p></div>`;
+      const escolaridadeTexto = d.cursoSuperior ? `${d.escolaridade} em ${d.cursoSuperior}` : d.escolaridade;
+      html += `<div class="preview-secao"><h4>Escolaridade</h4><p>${escapeHtml(escolaridadeTexto)}${d.instituicao ? " — " + escapeHtml(d.instituicao) : ""}</p></div>`;
     }
 
     const cursos = d.cursos.filter((c) => c.nomeCurso);
