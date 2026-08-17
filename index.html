@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<title>Currículo Fácil — Monte seu currículo grátis pelo celular</title>
+<meta name="description" content="Gere um currículo profissional em PDF pelo celular, sem pagar nada e sem precisar de login. Feito para quem faz bicos, trabalhos autônomos ou está buscando o primeiro emprego.">
+<meta name="theme-color" content="#0b5d3b">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<a href="#conteudo-principal" class="skip-link">Pular para o conteúdo</a>
+
+<div id="aria-anuncios" class="sr-only" aria-live="polite" role="status"></div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo">
+      <span aria-hidden="true">📄</span> Currículo Fácil
+    </div>
+    <div class="header-actions">
+      <div class="controles-fonte" role="group" aria-label="Tamanho do texto">
+        <button id="btn-fonte-menos" type="button" class="btn btn-fonte" aria-label="Diminuir tamanho do texto">A-</button>
+        <button id="btn-fonte-mais" type="button" class="btn btn-fonte" aria-label="Aumentar tamanho do texto">A+</button>
+      </div>
+      <button id="btn-login" type="button" class="btn btn-google">
+        <span aria-hidden="true">🔑</span> Entrar com Google
+      </button>
+      <div id="user-info" class="user-info" hidden>
+        <img id="user-avatar" src="" alt="" class="avatar">
+        <span id="user-name"></span>
+        <button id="btn-meus-curriculos" type="button" class="btn btn-text">📁 Meus currículos</button>
+        <button id="btn-logout" type="button" class="btn btn-text">Sair</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Espaço de anúncio - topo -->
+<div class="ad-slot ad-slot-top" aria-label="Espaço publicitário">
+  <!-- COLE AQUI O CÓDIGO DO GOOGLE ADSENSE (bloco de anúncio "topo") -->
+  <p class="ad-placeholder-text">Espaço reservado para anúncio</p>
+</div>
+
+<main id="conteudo-principal">
+
+  <section id="tela-inicial" class="tela ativa" aria-labelledby="titulo-inicial">
+    <div class="container">
+      <h1 id="titulo-inicial" tabindex="-1">Monte seu currículo em poucos minutos</h1>
+      <p class="subtitulo">Direto do celular, sem pagar nada e sem precisar imprimir em lan house. Ao final você baixa um PDF pronto para imprimir ou enviar pelo WhatsApp.</p>
+
+      <div class="aviso-privacidade" role="note">
+        <strong>Sua privacidade:</strong> se você não fizer login, nenhum dado é enviado ou guardado em servidor — tudo acontece no seu celular. Se preferir, entre com sua conta Google para salvar e editar seu currículo depois.
+      </div>
+
+      <div class="cartao-opcoes">
+        <button id="btn-comecar" type="button" class="btn btn-primario btn-grande">Começar meu currículo</button>
+        <div id="area-meus-curriculos" hidden>
+          <h2>Meus currículos salvos</h2>
+          <ul id="lista-curriculos-salvos" class="lista-curriculos"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <form id="form-curriculo" novalidate>
+
+    <div class="progresso-wrap container" hidden>
+      <div class="progresso-texto">
+        Etapa <span id="passo-atual">1</span> de <span id="passo-total">7</span>: <span id="passo-nome"></span>
+      </div>
+      <div class="progresso-barra" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="barra-progresso">
+        <div class="progresso-preenchido" id="progresso-preenchido"></div>
+      </div>
+    </div>
+
+    <!-- ETAPA 1: Dados pessoais -->
+    <fieldset class="etapa container" data-etapa="1" hidden>
+      <legend><h2>Seus dados pessoais</h2></legend>
+      <p class="dica-etapa">Essas informações ficam no topo do seu currículo, para o contratante saber quem você é e como te chamar.</p>
+
+      <div class="campo">
+        <label for="nome">Nome completo *</label>
+        <input type="text" id="nome" name="nome" required autocomplete="name">
+      </div>
+
+      <div class="campo">
+        <label for="cidade">Cidade / Estado *</label>
+        <input type="text" id="cidade" name="cidade" required placeholder="Ex: Recife/PE" autocomplete="address-level2">
+      </div>
+
+      <div class="campo">
+        <label for="telefone">Telefone / WhatsApp *</label>
+        <input type="tel" id="telefone" name="telefone" required placeholder="(00) 00000-0000" autocomplete="tel">
+        <p class="dica-campo">💡 Use um número que você atenda com frequência. É por aqui que o contratante vai te chamar.</p>
+      </div>
+
+      <div class="campo">
+        <label for="email">E-mail (opcional)</label>
+        <input type="email" id="email" name="email" autocomplete="email">
+        <p class="dica-campo">💡 Não tem e-mail? Sem problema, pode deixar em branco.</p>
+      </div>
+    </fieldset>
+
+    <!-- ETAPA 2: Objetivo -->
+    <fieldset class="etapa container" data-etapa="2" hidden>
+      <legend><h2>O que você está buscando?</h2></legend>
+      <p class="dica-etapa">Diga em poucas palavras a vaga ou área que você quer trabalhar.</p>
+
+      <div class="campo">
+        <label for="objetivo">Objetivo / Área de interesse *</label>
+        <input type="text" id="objetivo" name="objetivo" required placeholder="Ex: Auxiliar de serviços gerais, Entregador, Diarista">
+        <p class="dica-campo">💡 Seja direto: "Vaga de porteiro", "Trabalho como cabeleireira", "Motorista de aplicativo".</p>
+      </div>
+    </fieldset>
+
+    <!-- ETAPA 3: Experiência -->
+    <fieldset class="etapa container" data-etapa="3" hidden>
+      <legend><h2>Experiência profissional</h2></legend>
+      <p class="dica-etapa">Conte os trabalhos que você já fez — incluindo bicos, trabalho informal ou autônomo. Isso também é experiência e vale muito!</p>
+      <div class="aviso-privacidade aviso-dica" role="note">
+        💡 <strong>Fez bicos ou trabalhou por conta própria?</strong> Escreva normalmente, por exemplo: "Serviços de pintura residencial (autônomo)", "Entregas por aplicativo", "Faxina em casas de família", "Vendas ambulantes de doces". Não precisa ter carteira assinada para contar como experiência.
+      </div>
+
+      <div id="lista-experiencias"></div>
+      <button type="button" id="btn-add-experiencia" class="btn btn-secundario">+ Adicionar outro trabalho</button>
+      <p class="campo-opcional-texto">Se ainda não teve nenhum trabalho, pode pular esta etapa.</p>
+    </fieldset>
+
+    <!-- ETAPA 4: Formação -->
+    <fieldset class="etapa container" data-etapa="4" hidden>
+      <legend><h2>Escolaridade</h2></legend>
+      <p class="dica-etapa">Conte até onde você estudou. Não tem problema se não terminou — só escolha a opção que combina com você.</p>
+
+      <div class="campo">
+        <label for="escolaridade">Nível de escolaridade *</label>
+        <select id="escolaridade" name="escolaridade" required>
+          <option value="">Selecione...</option>
+          <option value="Ensino Fundamental incompleto">Ensino Fundamental incompleto</option>
+          <option value="Ensino Fundamental completo">Ensino Fundamental completo</option>
+          <option value="Ensino Médio incompleto">Ensino Médio incompleto</option>
+          <option value="Ensino Médio completo">Ensino Médio completo</option>
+          <option value="Ensino Técnico">Ensino Técnico</option>
+          <option value="Ensino Superior incompleto">Ensino Superior incompleto</option>
+          <option value="Ensino Superior completo">Ensino Superior completo</option>
+        </select>
+      </div>
+
+      <div class="campo">
+        <label for="instituicao">Nome da escola/instituição (opcional)</label>
+        <input type="text" id="instituicao" name="instituicao">
+      </div>
+    </fieldset>
+
+    <!-- ETAPA 5: Cursos -->
+    <fieldset class="etapa container" data-etapa="5" hidden>
+      <legend><h2>Cursos e qualificações</h2></legend>
+      <p class="dica-etapa">Já fez algum curso, mesmo curto ou online? Isso ajuda bastante — pode incluir cursos do SENAI, SENAC, Pronatec, prefeitura, igreja, ou cursos gratuitos pela internet.</p>
+
+      <div id="lista-cursos"></div>
+      <button type="button" id="btn-add-curso" class="btn btn-secundario">+ Adicionar curso</button>
+      <p class="campo-opcional-texto">Etapa opcional — pode pular se não tiver nenhum curso.</p>
+    </fieldset>
+
+    <!-- ETAPA 6: Habilidades e disponibilidade -->
+    <fieldset class="etapa container" data-etapa="6" hidden>
+      <legend><h2>Habilidades e disponibilidade</h2></legend>
+
+      <div class="campo">
+        <label for="habilidades">Suas habilidades (opcional)</label>
+        <textarea id="habilidades" name="habilidades" rows="3" placeholder="Ex: Pontualidade, atendimento ao público, cozinhar, dirigir moto, usar celular/computador"></textarea>
+        <p class="dica-campo">💡 Separe por vírgula. Pense em coisas que você faz bem, mesmo que pareçam simples.</p>
+      </div>
+
+      <div class="campo">
+        <label for="disponibilidade">Disponibilidade (opcional)</label>
+        <input type="text" id="disponibilidade" name="disponibilidade" placeholder="Ex: Segunda a sábado, período integral">
+      </div>
+
+      <div class="campo campo-checkbox">
+        <input type="checkbox" id="cnh" name="cnh">
+        <label for="cnh">Tenho CNH (carteira de motorista)</label>
+      </div>
+
+      <div class="campo campo-checkbox">
+        <input type="checkbox" id="veiculo" name="veiculo">
+        <label for="veiculo">Tenho veículo próprio</label>
+      </div>
+    </fieldset>
+
+    <!-- ETAPA 7: Revisão -->
+    <fieldset class="etapa container" data-etapa="7" hidden>
+      <legend><h2>Revisar e baixar</h2></legend>
+      <p class="dica-etapa">Confira como ficou. Você pode voltar e corrigir qualquer etapa antes de baixar.</p>
+
+      <div id="completude-curriculo" class="completude" aria-live="polite"></div>
+
+      <div id="preview-curriculo" class="preview-curriculo" aria-live="polite"></div>
+
+      <div class="acoes-finais">
+        <button type="button" id="btn-gerar-pdf" class="btn btn-primario btn-grande">⬇️ Baixar currículo em PDF</button>
+        <button type="button" id="btn-compartilhar-whatsapp" class="btn btn-secundario btn-grande">📲 Compartilhar no WhatsApp</button>
+        <button type="button" id="btn-salvar-nuvem" class="btn btn-secundario" hidden>☁️ Salvar na minha conta Google</button>
+      </div>
+      <p id="status-acao" role="status" class="status-acao"></p>
+    </fieldset>
+
+    <!-- Navegação entre etapas -->
+    <div class="navegacao container">
+      <button type="button" id="btn-voltar" class="btn btn-texto-nav" hidden>← Voltar</button>
+      <button type="button" id="btn-avancar" class="btn btn-primario" hidden>Avançar →</button>
+    </div>
+
+  </form>
+
+</main>
+
+<!-- Espaço de anúncio - lateral/rodapé -->
+<div class="ad-slot ad-slot-bottom" aria-label="Espaço publicitário">
+  <!-- COLE AQUI O CÓDIGO DO GOOGLE ADSENSE (bloco de anúncio "rodapé") -->
+  <p class="ad-placeholder-text">Espaço reservado para anúncio</p>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>Currículo Fácil — ferramenta gratuita para ajudar trabalhadores a entrar no mercado de trabalho.</p>
+    <p class="footer-lgpd">Seus dados só são guardados se você fizer login. Sem login, nada sai do seu celular. <a href="#" id="link-privacidade">Saiba mais</a>.</p>
+  </div>
+</footer>
+
+<!-- Modelo (template) de item de experiência, usado pelo JS -->
+<template id="template-experiencia">
+  <div class="item-repetivel" data-item-experiencia>
+    <div class="campo">
+      <label class="rotulo-envolve"><span>Cargo ou tipo de trabalho *</span>
+      <input type="text" data-campo="cargo" required placeholder="Ex: Ajudante de pedreiro, Diarista, Entregador"></label>
+    </div>
+    <div class="campo">
+      <label class="rotulo-envolve"><span>Empresa ou "Trabalho autônomo / bico"</span>
+      <input type="text" data-campo="empresa" placeholder="Ex: Autônomo, Restaurante Sabor Caseiro"></label>
+    </div>
+    <div class="campo campo-duas-colunas">
+      <div>
+        <label class="rotulo-envolve"><span>De (mês/ano)</span>
+        <input type="text" data-campo="inicio" placeholder="Ex: 03/2023"></label>
+      </div>
+      <div>
+        <label class="rotulo-envolve"><span>Até (mês/ano ou "Atual")</span>
+        <input type="text" data-campo="fim" placeholder="Ex: Atual"></label>
+      </div>
+    </div>
+    <div class="campo">
+      <label class="rotulo-envolve"><span>O que você fazia?</span>
+      <textarea data-campo="descricao" rows="2" placeholder="Ex: Entregas de comida por aplicativo na região central"></textarea></label>
+    </div>
+    <button type="button" class="btn btn-remover" data-remover>Remover</button>
+  </div>
+</template>
+
+<!-- Modelo (template) de item de curso, usado pelo JS -->
+<template id="template-curso">
+  <div class="item-repetivel" data-item-curso>
+    <div class="campo">
+      <label class="rotulo-envolve"><span>Nome do curso *</span>
+      <input type="text" data-campo="nomeCurso" required placeholder="Ex: Curso de Cozinha Básica"></label>
+    </div>
+    <div class="campo">
+      <label class="rotulo-envolve"><span>Instituição (opcional)</span>
+      <input type="text" data-campo="instituicaoCurso" placeholder="Ex: SENAC, Prefeitura, Curso online"></label>
+    </div>
+    <button type="button" class="btn btn-remover" data-remover>Remover</button>
+  </div>
+</template>
+
+<!-- Bibliotecas externas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- Firebase (opcional — login e salvar currículos) -->
+<script type="module" src="js/firebase-config.js"></script>
+<script type="module" src="js/auth.js"></script>
+
+<!-- App principal -->
+<script src="js/pdf-generator.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
